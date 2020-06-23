@@ -1,0 +1,43 @@
+<template>
+
+	<lightning-card title="Calling an Apex Method" icon-name="standard:contact">
+
+		<!-- Get some contacts by wiring to a property -->
+		<div class="slds-m-around_medium">
+			<template if:true={contacts.data}>
+				{selectedAccountName} Contacts:
+				<ul>
+					<template for:each={contacts.data} for:item="contact">
+						<li key={contact.Id}>{contact.FirstName} {contact.LastName} {contact.Email}</li>
+					</template>
+				</ul>
+			</template>
+		</div>
+
+		<div class="slds-m-around_medium">
+			<template if:true={contacts.error}>
+				<p style="color: red">{contacts.error.body.message}</p>
+			</template>
+		</div>
+
+		<!-- Get some accounts by wiring to a function -->
+		<div class="slds-m-around_medium">
+			<template if:true={accounts}>
+				All Accounts:
+				<ul>
+					<template for:each={accounts} for:item="account">
+						<li key={account.Id}>Name: {account.Name} Type: {account.Type}</li>
+					</template>
+				</ul>
+			</template>
+		</div>
+
+		<div class="slds-m-around_medium">
+			<template if:true={errormessage}>
+				<p style="color: red">{errormessage}</p>
+			</template>
+		</div>		
+
+	</lightning-card>
+
+</template>

@@ -1,0 +1,27 @@
+import { LightningElement, track, wire } from 'lwc';
+import getContactsForAccount from '@salesforce/apex/ContactController.getContactsForAccount';
+import getAccounts from '@salesforce/apex/ContactController.getAccounts';
+
+export default class ChildLwc extends LightningElement {
+	selectedAccountName = 'Acme Inc'; // Hard code the account name for now
+	
+	// Wire Apex method to a property
+    @wire(getContactsForAccount, { accountName: '$selectedAccountName' })
+    contacts;
+
+	// The wired function populates these
+	@track accounts;
+	@track errormessage;
+
+	// Wire Apex method to a function
+    @wire(getAccounts)
+    wiredAccounts({ error, data }) {
+        if (data) {
+            this.accounts = data;
+            this.errormessage = undefined;
+        } else if (error) {
+			this.errormessage = error.body.message;
+			this.accounts = undefined;
+        }
+    }
+}

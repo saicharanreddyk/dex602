@@ -1,0 +1,35 @@
+<template>
+
+	<lightning-card title="lightning-datatable example">
+		<lightning-button slot="actions" label="Refresh View" onclick={refresh}></lightning-button>
+
+		<div class="slds-m-around_medium">
+			Total rows:	{totalrowcount} <br/>
+			Current rows: {currentrowcount}
+		</div>
+
+		<div style="height: 400px">
+			<lightning-datatable data={rows} 
+								 columns={cols} 
+								 key-field="Id"
+								 show-row-number-column
+								 enable-infinite-loading={enableinfinitloading}
+								 onloadmore={loadMoreData}
+								 onsort={updateColumnSorting}
+								 onrowselection={getSelectedNames}
+								 onsave={handleSaveEdits}
+								 errors={errors}>
+			</lightning-datatable>
+		</div>
+		
+		<div class="slds-m-around_medium">
+			{loadMoreStatus}
+		</div>
+
+		<div class="slds-m-around_medium">
+			{errorMessage}
+		</div>
+
+	</lightning-card>
+
+</template>
